@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono&display=swap");
+
+body {
+  background: hsl(185, 41%, 84%);
+  font-family: "Space Mono", monospace;
+  padding: 0 20%;
+}
+
+.splitterTitleDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.splitterFormMaster {
+  display: flex;
+}
+
+.splitterForm {
+  width: 75%;
+  background: white;
+  padding: 2rem 3rem;
+  display: flex;
+  font-weight: 700;
+  color: hsl(186, 14%, 43%);
+  border-radius: 22px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin-top: 2rem;
+}
+
+.splitterFormTwo {
+  background: hsl(183, 100%, 15%);
+  width: 100%;
+  padding: 2rem 3rem;
+  font-weight: 500;
+  color: white;
+  border-radius: 22px;
+  margin-left: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.splitterFormTwoSpan {
+  color: hsl(186, 14%, 43%);
+  font-size: 0.75rem;
+}
+
+.splitterFormTipsTwo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.splitterFormTwoAmount {
+  margin-left: auto;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: hsl(172, 67%, 45%);
+}
+
+.splitterFormTwoTitleSplit {
+  display: flex;
+  flex-direction: column;
+}
+.splitterFormTwoTitleSplit label {
+  font-size: 1rem;
+}
+
+.splitterInputContainer {
+  position: relative;
+  margin-top: 10px;
+}
+
+.splitterInputContainer img {
+  position: absolute;
+  padding: 18px 16px;
+}
+
+.splitterFormInput::placeholder {
+  text-align: right;
+}
+
+.splitterInputTipGrid {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.splitterInputTipBlock {
+  background: hsl(183, 100%, 15%);
+  color: white;
+  padding: 10px 8px;
+  border-radius: 0.5rem;
+  text-align: center;
+  width: 4.5rem;
+  font-weight: 700;
+  border: 0;
+}
+
+.splitterInputTipBlock,
+.splitterFormInput,
+.spliiterInputTipBlockCustom,
+.spliiterInputTipBlockCustom::placeholder,
+.splitterFormResetButton {
+  font-family: "Space Mono", monospace;
+}
+
+.splitterFormInput {
+  padding: 12px 16px;
+  border: 0;
+  background: hsl(189, 41%, 97%);
+  padding-left: 2rem;
+  text-align: right;
+  font-size: 16px;
+}
+
+.spliiterInputTipBlockCustom {
+  background: hsl(189, 41%, 97%);
+  border: 0;
+  width: 4.5rem;
+  padding: 10px 8px;
+  text-align: right;
+  font-weight: 700;
+  color: hsl(183, 100%, 15%);
+}
+
+.spliiterInputTipBlockCustom::placeholder {
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+  color: hsl(183, 100%, 15%);
+}
+
+.splitterInputTipBlock:hover,
+.splitterInputTipBlock:focus {
+  background: hsl(172, 67%, 45%);
+  color: hsl(183, 100%, 15%);
+  cursor: pointer;
+}
+
+.splitterFormBlock {
+  margin-top: 1.5rem;
+}
+
+.splitterFormResetButton {
+  background: hsl(172, 67%, 45%);
+  color: hsl(183, 100%, 15%);
+  outline: none;
+  border: 0;
+  border-radius: 4px;
+  padding: 8px 14px;
+  width: 100%;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.splitterFormResetButton:hover {
+  background: hsl(185, 41%, 84%);
+  cursor: pointer;
+}
