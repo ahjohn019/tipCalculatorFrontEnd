@@ -122,7 +122,8 @@ body {
 .spliiterInputTipBlockCustom {
   background: hsl(189, 41%, 97%);
   border: 0;
-  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
   padding: 10px 8px;
   text-align: right;
   font-weight: 700;
