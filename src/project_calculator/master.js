@@ -30,7 +30,11 @@ const MasterPage = () => {
 
   //handle custom input tips event value, and clear the custom percent field if user insert value on custom field
   const handleCustomTips = event => {
-    setCustomTipAmount(event.target.value);
+    //limit the length of custom input percentage values
+    const { value, maxLength } = event.target;
+    const limitCustomTipsNumber = value.slice(0, maxLength);
+    setCustomTipAmount(limitCustomTipsNumber);
+
     clearPercentTips = handleTipCalculation(0, inputForm);
     setTipSelection(clearPercentTips);
   };
@@ -106,6 +110,7 @@ const MasterPage = () => {
                 value={customTipAmount}
                 onChange={handleCustomTips}
                 placeholder="Custom"
+                maxLength="3"
               />
             </div>
           </div>
