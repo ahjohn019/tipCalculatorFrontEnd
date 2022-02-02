@@ -3,7 +3,7 @@
 body {
   background: hsl(185, 41%, 84%);
   font-family: "Space Mono", monospace;
-  padding: 0 20%;
+  padding: 0 5%;
 }
 
 .splitterTitleDiv {
@@ -19,9 +19,8 @@ body {
 }
 
 .splitterForm {
-  width: 75%;
   background: white;
-  padding: 2rem 3rem;
+  padding: 2.5em;
   display: flex;
   font-weight: 700;
   color: hsl(186, 14%, 43%);
@@ -56,7 +55,7 @@ body {
 
 .splitterFormTwoAmount {
   margin-left: auto;
-  font-size: 2.5rem;
+  font-size: 2.5em;
   font-weight: 700;
   color: hsl(172, 67%, 45%);
 }
@@ -85,9 +84,9 @@ body {
 
 .splitterInputTipGrid {
   display: grid;
-  grid-template-columns: auto auto auto;
-  grid-gap: 0.5rem;
-  margin-top: 1.25rem;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5em;
 }
 
 .splitterInputTipBlock {
@@ -116,21 +115,24 @@ body {
   padding-left: 2rem;
   text-align: right;
   font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .spliiterInputTipBlockCustom {
   background: hsl(189, 41%, 97%);
   border: 0;
-  width: 4.5rem;
+  width: 100%;
   padding: 10px 8px;
   text-align: right;
   font-weight: 700;
   color: hsl(183, 100%, 15%);
+  box-sizing: border-box;
 }
 
 .spliiterInputTipBlockCustom::placeholder {
   font-weight: 700;
-  font-size: 18px;
+  font-size: 14px;
   text-align: center;
   color: hsl(183, 100%, 15%);
 }
@@ -161,4 +163,25 @@ body {
 .splitterFormResetButton:hover {
   background: hsl(185, 41%, 84%);
   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .splitterForm {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .splitterInputTipGrid {
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5em;
+  }
+
+  .splitterFormTwo {
+    margin: 0;
+    margin-top: 1.5rem;
+    width: auto;
+    padding: 1.25em;
+    height: 200px;
+  }
 }

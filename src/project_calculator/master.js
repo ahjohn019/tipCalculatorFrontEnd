@@ -3,50 +3,63 @@ import classes from "../project_calculator/master.module.css";
 import Dollar from "../image/icon-dollar.svg";
 import Person from "../image/icon-person.svg";
 import Logo from "../image/logo.svg";
+import handleTipCalculation from "../project_calculator/handleTipCalculation";
 
 const MasterPage = () => {
+  //setup input form
   const [inputForm, setInputForm] = useState({
     billName: "",
     numOfPeople: "",
-    customTipAmount: "",
   });
 
+  //initialize tip form list
+  const [customTipAmount, setCustomTipAmount] = useState("");
   const [tipSelection, setTipSelection] = useState([]);
+  let tipPercentSelection;
+  let clearPercentTips;
 
+  //pass the tipamount to handletip calculation function
+  let tipCustom = handleTipCalculation(parseInt(customTipAmount), inputForm);
+
+  //initialize the tip number value
+  const tipNumber = [5, 10, 15, 20, 25];
+
+  //initialize tip overall result
+  let tipOverallAmount = "";
+  let tipOverallTotalPerson = "";
+
+  //handle custom input tips event value, and clear the custom percent field if user insert value on custom field
+  const handleCustomTips = event => {
+    setCustomTipAmount(event.target.value);
+    clearPercentTips = handleTipCalculation(0, inputForm);
+    setTipSelection(clearPercentTips);
+  };
+
+  // handle the input form (billName, numOfPeople)
   const handleChanges = event => {
     setInputForm({ ...inputForm, [event.target.name]: event.target.value });
   };
 
-  const handleTipCalculation = tipValue => {
-    let billName = parseFloat(inputForm.billName);
-    let numOfPerson = parseInt(inputForm.numOfPeople);
-    let roundTipPercent = parseInt(tipValue) / 100;
-    let tipAmount = (roundTipPercent * billName) / numOfPerson;
-
-    let finalTipAmount =
-      isNaN(billName) || isNaN(numOfPerson) || billName <= 0 || numOfPerson <= 0
-        ? "0.00"
-        : Math.floor(tipAmount * 100) / 100;
-
-    let totalPersonAmount =
-      isNaN(billName) || isNaN(numOfPerson) || billName <= 0 || numOfPerson <= 0
-        ? "0.00"
-        : ((billName * (roundTipPercent + 1)) / numOfPerson).toFixed(2);
-
-    return { finalTipAmount, totalPersonAmount };
-  };
-
-  // let tipCustom = handleTipCalculation(parseInt(inputForm.customTipAmount));
-  let selectionResult;
-  const tipNumber = [5, 10, 15, 20, 25];
-
+  //handle custom selection tips event value, and clear the insert value on custom field
   const handleSelection = event => {
-    selectionResult = handleTipCalculation(event.currentTarget.value);
-    setTipSelection(selectionResult);
+    tipPercentSelection = handleTipCalculation(
+      event.currentTarget.value,
+      inputForm
+    );
+    setTipSelection(tipPercentSelection);
+    setCustomTipAmount(0);
   };
 
-  console.log(tipSelection);
-  // console.log(inputForm.customTipAmount);
+  // summarize the tip overall result
+  if (tipSelection.finalTipAmount === 0 && tipCustom.length !== 0) {
+    tipOverallAmount = tipCustom.finalTipAmount;
+    tipOverallTotalPerson = tipCustom.totalPersonAmount;
+  } else {
+    if (tipSelection.length !== 0) {
+      tipOverallAmount = tipSelection.finalTipAmount;
+      tipOverallTotalPerson = tipSelection.totalPersonAmount;
+    }
+  }
 
   return (
     <div className={classes.splitterTitleDiv}>
@@ -57,6 +70,7 @@ const MasterPage = () => {
             <label>Bill</label>
             <div className={classes.splitterInputContainer}>
               <img src={Dollar} alt={Dollar} />
+
               <input
                 type="number"
                 name="billName"
@@ -73,22 +87,24 @@ const MasterPage = () => {
             <label>Select Tip %</label>
             <div className={classes.splitterInputTipGrid}>
               {tipNumber.map((tip, index) => (
-                <input
+                <button
                   key={index}
                   type="button"
                   className={classes.splitterInputTipBlock}
                   value={tip}
                   onClick={handleSelection}
-                />
+                  style={{ width: "100%" }}
+                >
+                  {tip}%
+                </button>
               ))}
-
               <input
-                type="text"
+                type="number"
                 id="customTipAmount"
                 name="customTipAmount"
                 className={classes.spliiterInputTipBlockCustom}
-                value={inputForm.customTipAmount}
-                onChange={handleChanges}
+                value={customTipAmount}
+                onChange={handleCustomTips}
                 placeholder="Custom"
               />
             </div>
@@ -117,25 +133,25 @@ const MasterPage = () => {
                 <label>Tip Amount</label>
                 <span className={classes.splitterFormTwoSpan}>/ person</span>
               </div>
-
-              <span className={classes.splitterFormTwoAmount}>
-                ${" "}
-                {tipSelection.length <= 0
-                  ? "0.00"
-                  : tipSelection.finalTipAmount}
-              </span>
+              {
+                <span className={classes.splitterFormTwoAmount}>
+                  {tipOverallAmount.length <= 0 ? "0.00" : tipOverallAmount}
+                </span>
+              }
             </div>
             <div className={classes.splitterFormTipsTwo}>
               <div className={classes.splitterFormTwoTitleSplit}>
                 <label>Total </label>
                 <span className={classes.splitterFormTwoSpan}>/ person</span>
               </div>
-              <span className={classes.splitterFormTwoAmount}>
-                ${" "}
-                {tipSelection.length <= 0
-                  ? "0.00"
-                  : tipSelection.totalPersonAmount}
-              </span>
+
+              {
+                <span className={classes.splitterFormTwoAmount}>
+                  {tipOverallTotalPerson.length <= 0
+                    ? "0.00"
+                    : tipOverallTotalPerson}
+                </span>
+              }
             </div>
           </div>
 
@@ -154,49 +170,3 @@ const MasterPage = () => {
 };
 
 export default MasterPage;
-
-// const [tipAmount, setTipAmount] = useState([]);
-// const [totalPerson, setTotalPerson] = useState([]);
-//  const handleTipCalculation = event => {
-//    let tipChanges = event.currentTarget.value;
-//    let billName = parseFloat(inputForm.billName);
-//    let numOfPerson = parseInt(inputForm.numOfPeople);
-//    let roundTipPercent = parseInt(tipChanges) / 100;
-
-//    customTipAmountTarget.current.value = "";
-
-//    let tipAmount = (roundTipPercent * billName) / numOfPerson;
-
-//    let finalTipAmount =
-//      isNaN(billName) || isNaN(numOfPerson) || billName <= 0 || numOfPerson <= 0
-//        ? "0.00"
-//        : Math.floor(tipAmount * 100) / 100;
-
-//    let totalPersonAmount =
-//      isNaN(billName) || isNaN(numOfPerson) || billName <= 0 || numOfPerson <= 0
-//        ? "0.00"
-//        : ((billName * (roundTipPercent + 1)) / numOfPerson).toFixed(2);
-
-//    setTipAmount(finalTipAmount);
-//    setTotalPerson(totalPersonAmount);
-//  };
-
-// if (inputForm.customTipAmount.length > 0) {
-//   const result = handleTipCalculation(parseInt(inputForm.customTipAmount));
-//   console.log(result);
-// }
-
-// const handleSelection = event => {
-//   const result_two = handleTipCalculation(event.currentTarget.value);
-//   console.log(result_two);
-// };
-
-/* <input
-              onClick={() =>
-                (document.getElementById("customTipAmount").value = "")
-              }
-              type="button"
-              value="clear"
-            ></input> */
-
-// document.getElementById("customTipAmount").value = "";
